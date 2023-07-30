@@ -7,6 +7,16 @@
  * Повертає випадковий пароль.
  */
 function generateRandomPassword(length) {
+  let password = "";
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (let i = 0; i < length; i++) {
+    const randomIndex = Math.floor(Math.random() * characters.length);
+    const randomCharacter = characters[randomIndex];
+    password += randomCharacter;
+  }
+
+  return password;
   // Створюємо порожній рядок для збереження паролю.
   // Створюємо рядок characters "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" з доступних символів для паролю.
   // За допомогою циклу for проходимось по кожному символу рядка characters
@@ -27,6 +37,13 @@ console.log(generateRandomPassword(8));
  * Поверне: Площу кола.
  */
 function calculateCircleArea(radius) {
+  if (typeof radius !== "number") {
+    console.log("Помилка");
+    return null;
+  }
+  const PI = Math.PI;
+  const area = PI * radius * radius;
+  return area;
   // Перевірка, чи переданий радіус є числом.
   // Якщо радіус не є числом, виводимо в консоль повідомлення про помилку.
   // Повертаємо null, щоб показати, що обчислення не можливе.
@@ -46,6 +63,14 @@ console.log(calculateCircleArea(5));
  * Поверне: Об'єкт, що містить мінімальне та максимальне число.
  */
 function findMinMax(numbers) {
+  if (!Array.isArray(numbers)) {
+    console.log("Помилка");
+    return null;
+  }
+  const min = Math.min.apply(null, numbers);
+  const max = Math.max.apply(null, numbers);
+
+  return { min, max };
   // Перевіряємо, чи переданий параметр є масивом.
   // Якщо переданий параметр не є масивом, виводимо в консоль повідомлення про помилку.
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
@@ -67,6 +92,12 @@ console.log(findMinMax([5, 2, 9, 1, 5, 6, 7, 8]));
  * Поверне: Довжину гіпотенузи.
  */
 function calculateHypotenuse(a, b) {
+  if (typeof a !== "number" || typeof b !== "number") {
+    console.log("Помилка");
+    return null;
+  }
+  const hypotenuse = Math.sqrt(Math.pow(a, 2) + Math.pow(b, 2));
+  return hypotenuse;
   // Перевіряємо, чи довжини катетів є числами. Оператор typeof повертає рядок, що вказує тип непустого операнда.
   // Якщо довжини катетів не є числами, виводимо в консоль повідомлення про помилку.
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
@@ -86,6 +117,20 @@ console.log(calculateHypotenuse(3, 4));
  *  Поверне: Об'єкт з заокругленими значеннями числових властивостей.
  */
 function roundObjectValues(obj) {
+  if (typeof obj !== "object") {
+    console.log("Помилка: аргумент має бути об'єктом");
+    return null;
+  }
+  const arr = Object.entries(obj);
+  const round = arr.map(([key, value]) => {
+    if (typeof value === "number") {
+      return [key, Math.round(value)];
+    } else {
+      return [key, value];
+    }
+  });
+  const round2 = Object.fromEntries(round);
+  return round2;
   // Перевіряємо, чи аргумент є об'єктом.
   // Також перевіряємо, що аргумент не є null.
   // Якщо аргумент не є об'єктом або є null, виводимо повідомлення "Помилка: аргумент має бути об'єктом".
@@ -119,6 +164,12 @@ console.log(roundObjectValues(myObject));
  * Поверне: Об'єм циліндра.
  */
 function calculateVolumeCylinder(radius, height) {
+  if (typeof radius !== "number" || typeof height !== "number") {
+    return null;
+  }
+  const volume = Math.PI * Math.pow(radius, 2) * height;
+  const result = Math.ceil(volume);
+  return result;
   // Перевіряємо, чи є радіус і висота числами. Якщо хоча б один з аргументів не є числом, виводимо повідомлення про помилку в консоль.
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   // Обчислюємо об'єм циліндра за формулою V = PI * r^2 * h, де PI - число Пі, r - радіус, h - висота.
@@ -138,6 +189,17 @@ console.log(calculateVolumeCylinder(3, 5));
  * Поверне: Сума додатніх чисел.
  */
 function sumPositiveNumbers(numbers) {
+  if (!Array.isArray(numbers)) {
+    return null;
+  }
+  let sum = 0;
+  for (let i = 0; i < numbers.length; i++) {
+    const num = numbers[i];
+    if (Math.sign(num) === 1) {
+      sum += num;
+    }
+  }
+  return sum;
   // Перевіряємо, чи є numbers масивом. Якщо numbers не є масивом, виводимо повідомлення "Помилка: аргумент має бути масивом чисел".
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   // Ініціалізуємо змінну для збереження суми додатніх чисел.
@@ -158,6 +220,14 @@ console.log(sumPositiveNumbers([-5, 3, 2, -1, 7, -6]));
  * Поверне: дробова частина числа.
  */
 function getFractionalPart(num) {
+  if (typeof num !== "number") {
+    console.log("Помилка: вхідний аргумент має бути числом.");
+    return null;
+  }
+  const fullNumber = Math.trunc(num);
+  const fractional = num - fullNumber;
+  const result = Math.fround(fractional);
+  return result;
   // Перевіряємо, чи є num числом. Якщо num не є числом, виводимо повідомлення "Помилка: вхідний аргумент має бути числом.".
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   // Округляємо відкидуючи дробову частину.
@@ -179,6 +249,13 @@ console.log(getFractionalPart(12.34567));
  *  Поверне: Найбільше число округлене до найближчого цілого.
  */
 function compareAndRound(num1, num2) {
+  if ((typeof num1 !== "number", typeof num2 !== "number")) {
+    console.log("Помилка: обидва аргументи мають бути числами.");
+    return null;
+  }
+  const maxNumber = Math.max(num1, num2);
+  const round = Math.round(maxNumber);
+  return round;
   // Перевірка, чи обидва аргументи є числами. Якщо хоча б один аргумент не є числом, виводимо повідомлення "Помилка: обидва аргументи мають бути числами.".
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   // Визначаємо найбільше число.
@@ -200,6 +277,17 @@ console.log(compareAndRound(13.4, 15.7));
  *  Поверне: Оцінку суми прибутку від інвестицій.
  */
 function estimateInvestment(principal, interestRate, years) {
+  if (
+    (typeof principal !== "number",
+    typeof interestRate !== "number",
+    typeof years !== "number")
+  ) {
+    console.log("Помилка: всі аргументи мають бути числами.");
+    return null;
+  }
+  const sum = principal * Math.pow(1 + interestRate, years);
+  const fullSum = Math.round(sum);
+  return fullSum;
   // Перевірка, чи усі аргументи є числами. Якщо хоча б один аргумент не є числом, виводимо повідомлення про помилку в консоль.
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   // Розраховуємо суму інвестицій за формулою P*(1+rate)^years, де P - початкова сума інвестицій, rate - річна процентна ставка, years - кількість років.
@@ -223,12 +311,25 @@ console.log(estimateInvestment(1000, 0.05, 5));
  * Повертає чи перевищує totalPrice maxPrice.
  */
 function isTotalPriceExceedsMaxPrice(products, maxPrice) {
+  if (!Array.isArray(products)) {
+    console.log("Помилка.");
+    return null;
+  }
+  if (typeof maxPrice !== "number") {
+    console.log("Помилка.");
+    return null;
+  }
+  const totalPrice = products.reduce((acc, product) => acc + product.price, 0);
+  const roundedTotalPrice = Math.fround(totalPrice);
+  const roundedMaxPrice = Math.fround(maxPrice);
+  return roundedTotalPrice >= roundedMaxPrice;
   // Перевіряємо, чи аргумент products є масивом.
   // Якщо products не є масивом, виводимо повідомлення про помилку.
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
   // Перевіряємо, чи аргумент maxPrice є числом.
   // Якщо maxPrice не є числом, виводимо повідомлення про помилку.
   // Повертаємо null, що свідчить про неможливість обробки вхідних даних.
+
   // Використовуємо метод reduce() для обчислення загальної ціни.
   // Додаємо ціну продукту до аккумулятора.
   // Конвертуємо totalPrice та maxPrice за допомогою Math.fround.
